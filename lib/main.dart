@@ -5,6 +5,7 @@ import 'package:active_ecommerce_flutter/other_config.dart';
 import 'package:active_ecommerce_flutter/screens/chat_screen.dart';
 import 'package:active_ecommerce_flutter/screens/message_screen.dart';
 import 'package:active_ecommerce_flutter/screens/splash_screen.dart';
+import 'package:active_ecommerce_flutter/training.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -110,7 +111,7 @@ class _MyAppState extends State<MyApp> {
             ],
             locale: provider.locale,
             supportedLocales: LangConfig().supportedLocales(),
-            home: ChatScreen(),
+            home: Training(),
             // home: Splash(),
           );
         }));
