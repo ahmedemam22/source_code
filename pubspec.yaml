@@ -83,7 +83,10 @@ dependencies:
   mime: ^1.0.2
   open_file: ^3.2.1
   flutter_chat_ui: ^1.5.8
-
+  flutter_pusher: ^1.0.3
+dependency_overrides:
+  json_annotation: ^4.1.0
+  json_serializable: ^6.2.0
 
 dev_dependencies:
   flutter_test:
