@@ -1259,7 +1259,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   }
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) {
-                        return MessageScreen(shopName:_productDetails.shop_name);
+                        return MessageScreen(shopName:_productDetails.shop_name,productId: _productDetails.shop_id,);
                       }));
                   //onTapSellerChat();
                 },

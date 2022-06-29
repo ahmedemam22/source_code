@@ -18,7 +18,8 @@ import '../services/pusher.dart';
 
 class MessageScreen extends StatefulWidget {
   final String shopName;
-  const MessageScreen({Key key, this.shopName,}) : super(key: key);
+   int productId;
+   MessageScreen({Key key, this.shopName, this.productId,}) : super(key: key);
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
@@ -169,7 +170,9 @@ PusherCreating().initPusher();
       text: message.text,
     );
     _addMessage(textMessage);
+    if(widget.productId==null)
     await Provider.of<MessageProvider>(context,listen: false).sendMessage(message.text);
+    else Provider.of<MessageProvider>(context,listen: false).createConversation(message.text,widget.productId.toString());
 
   }
 
@@ -198,7 +201,7 @@ PusherCreating().initPusher();
         elevation: 0,
         title: Row(
           children: [
-            Text(widget.shopName,style:TextStyle(color: Colors.blue)),
+            Expanded(child: Text(widget.shopName,style:TextStyle(color: Colors.blue,overflow: TextOverflow.ellipsis))),
           ],
         ),
       ),
