@@ -2,6 +2,7 @@ import 'package:active_ecommerce_flutter/helpers/addons_helper.dart';
 import 'package:active_ecommerce_flutter/helpers/auth_helper.dart';
 import 'package:active_ecommerce_flutter/helpers/business_setting_helper.dart';
 import 'package:active_ecommerce_flutter/other_config.dart';
+import 'package:active_ecommerce_flutter/providers/message_provider.dart';
 import 'package:active_ecommerce_flutter/screens/chat_screen.dart';
 import 'package:active_ecommerce_flutter/screens/message_screen.dart';
 import 'package:active_ecommerce_flutter/screens/splash_screen.dart';
@@ -79,6 +80,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => LocaleProvider()),
+          ChangeNotifierProvider(create: (_) => MessageProvider()),
         ],
         child: Consumer<LocaleProvider>(builder: (context, provider, snapshot) {
           return MaterialApp(

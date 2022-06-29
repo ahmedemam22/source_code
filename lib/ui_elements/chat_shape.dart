@@ -8,7 +8,7 @@ class ChatShape extends StatelessWidget {
     return  InkWell(
       onTap: ()=>Navigator.push(context,
           MaterialPageRoute(builder: (context) {
-            return MessageScreen();
+            return MessageScreen(shopName: "Ahmed Emam",);
           }))
       ,
       child: Column(

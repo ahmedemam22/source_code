@@ -92,14 +92,12 @@ class _MainState extends State<Main> {
               child: Container(
                   margin: EdgeInsets.all(0.0),
                   child: IconButton(
-                      icon: new Image.asset('assets/square_logo.png'),
+                      icon: new Image.asset('assets/chat.png'),
                       tooltip: 'Action',
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return Filter(
-                            selected_filter: "sellers",
-                          );
+                          return ChatScreen();
                         }));
                       })),
               elevation: 0.0,
@@ -144,8 +142,7 @@ class _MainState extends State<Main> {
                         "assets/chat.png",
                       color: Colors.transparent,
                     ),
-                    label: AppLocalizations.of(context)
-                        .main_drawer_messages,
+                    label: '',
                   ),
                   BottomNavigationBarItem(
                       icon: Image.asset(

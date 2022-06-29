@@ -167,7 +167,8 @@ class _MainDrawerState extends State<MainDrawer> {
                             child: ListTile(
                                 visualDensity:
                                     VisualDensity(horizontal: -4, vertical: -4),
-                                leading:Icon(Icons.sell,
+                                leading:Image.asset("assets/top_sellers.png",
+                                    height: 16,
                                     color: Color.fromRGBO(153, 153, 153, 1)),
                                 title: Text(
                                     'Seller',
@@ -177,7 +178,9 @@ class _MainDrawerState extends State<MainDrawer> {
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return Filter();
+                                    return Filter(
+                                      selected_filter: "sellers",
+                                    );
                                   }));
                                 }),
                           ),
