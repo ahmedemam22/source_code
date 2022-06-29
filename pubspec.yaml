@@ -10,7 +10,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# In Android, build-name is used as versionName while build-number used as versionCode.
+# In Android, w-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
@@ -27,7 +27,7 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   provider: ^6.0.0
-  json_annotation: ^4.1.0
+  json_annotation: ^3.0.0
   logging: ^1.0.2
   connectivity: ^3.0.6
   shimmer: ^2.0.0
@@ -83,16 +83,20 @@ dependencies:
   mime: ^1.0.2
   open_file: ^3.2.1
   flutter_chat_ui: ^1.5.8
-  flutter_pusher: ^1.0.3
+  dio: ^4.0.6
+  pusher_websocket_flutter: ^0.2.0
 dependency_overrides:
   json_annotation: ^4.1.0
-  json_serializable: ^6.2.0
+  json_serializable: ^6.0.2
+
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.1.4
-  json_serializable: ^6.2.0
+  json_serializable: ^4.0.1
   flutter_launcher_icons: ^0.9.2
   google_maps_flutter: ^2.0.11
 

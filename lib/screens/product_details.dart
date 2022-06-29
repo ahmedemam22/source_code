@@ -1,6 +1,7 @@
 import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:active_ecommerce_flutter/screens/common_webview_screen.dart';
 import 'package:active_ecommerce_flutter/screens/login.dart';
+import 'package:active_ecommerce_flutter/screens/message_screen.dart';
 import 'package:active_ecommerce_flutter/screens/product_reviews.dart';
 import 'package:active_ecommerce_flutter/ui_elements/list_product_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/mini_product_card.dart';
@@ -1256,8 +1257,11 @@ class _ProductDetailsState extends State<ProductDetails> {
                         gravity: Toast.center, duration: Toast.lengthLong);
                     return;
                   }
-
-                  onTapSellerChat();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                        return MessageScreen(shopName:_productDetails.shop_name,productId: _productDetails.shop_id,);
+                      }));
+                  //onTapSellerChat();
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),

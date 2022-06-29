@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:active_ecommerce_flutter/providers/message_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -7,23 +9,32 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import '../helpers/shared_value_helper.dart';
+import 'package:pusher_websocket_flutter/pusher.dart';
 
+import '../services/pusher.dart';
 
 class MessageScreen extends StatefulWidget {
-  const MessageScreen({Key key}) : super(key: key);
+  final String shopName;
+   int productId;
+   MessageScreen({Key key, this.shopName, this.productId,}) : super(key: key);
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
 
 class _MessageScreenState extends State<MessageScreen> {
+  Channel _channel;
+
   List<types.Message> _messages = [];
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
+  final _user =  types.User(id: user_id.$.toString());
 
   @override
   void initState() {
     super.initState();
+PusherCreating().initPusher();
     _loadMessages();
   }
 
@@ -123,7 +134,11 @@ class _MessageScreenState extends State<MessageScreen> {
         width: image.width.toDouble(),
       );
 
+
       _addMessage(message);
+
+      await Provider.of<MessageProvider>(context,listen: false).uploadImage((File(result.path)));
+
     }
   }
 
@@ -147,15 +162,18 @@ class _MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  Future<void> _handleSendPressed(types.PartialText message) async{
     final textMessage = types.TextMessage(
       author: _user,
       createdAt: DateTime.now().millisecondsSinceEpoch,
       id: const Uuid().v4(),
       text: message.text,
     );
-
     _addMessage(textMessage);
+    if(widget.productId==null)
+    await Provider.of<MessageProvider>(context,listen: false).sendMessage(message.text);
+    else Provider.of<MessageProvider>(context,listen: false).createConversation(message.text,widget.productId.toString());
+
   }
 
   void _loadMessages() async {
@@ -183,7 +201,7 @@ class _MessageScreenState extends State<MessageScreen> {
         elevation: 0,
         title: Row(
           children: [
-            Text("Ahmed Emam",style:TextStyle(color: Colors.blue)),
+            Expanded(child: Text(widget.shopName,style:TextStyle(color: Colors.blue,overflow: TextOverflow.ellipsis))),
           ],
         ),
       ),

@@ -15,6 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'chat_screen.dart';
+
 class Main extends StatefulWidget {
   Main({Key key, go_back = true}) : super(key: key);
 
@@ -31,14 +33,14 @@ class _MainState extends State<Main> {
     CategoryList(
       is_base_category: true,
     ),
-    Home(),
+    ChatScreen(),
     Cart(has_bottomnav: true),
     Profile()
   ];
 
   void onTapped(int i) {
 
-    if (!is_logged_in.$ && (i == 4 || i == 3)) {
+    if (!is_logged_in.$ && (i == 4 || i == 3||i == 2)) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
       return;
     }
@@ -90,14 +92,12 @@ class _MainState extends State<Main> {
               child: Container(
                   margin: EdgeInsets.all(0.0),
                   child: IconButton(
-                      icon: new Image.asset('assets/square_logo.png'),
+                      icon: new Image.asset('assets/chat.png'),
                       tooltip: 'Action',
                       onPressed: () {
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return Filter(
-                            selected_filter: "sellers",
-                          );
+                          return ChatScreen();
                         }));
                       })),
               elevation: 0.0,
@@ -137,11 +137,12 @@ class _MainState extends State<Main> {
                       label: AppLocalizations.of(context)
                           .main_screen_bottom_navigation_categories),
                   BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.circle,
+                    icon:
+                      Image.asset(
+                        "assets/chat.png",
                       color: Colors.transparent,
                     ),
-                    label: "",
+                    label: '',
                   ),
                   BottomNavigationBarItem(
                       icon: Image.asset(

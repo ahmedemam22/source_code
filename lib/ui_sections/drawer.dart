@@ -15,6 +15,9 @@ import 'package:active_ecommerce_flutter/app_config.dart';
 import 'package:active_ecommerce_flutter/helpers/auth_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../screens/filter.dart';
+import '../screens/home.dart';
+
 class MainDrawer extends StatefulWidget {
   const MainDrawer({
     Key key,
@@ -164,19 +167,20 @@ class _MainDrawerState extends State<MainDrawer> {
                             child: ListTile(
                                 visualDensity:
                                     VisualDensity(horizontal: -4, vertical: -4),
-                                leading: Image.asset("assets/chat.png",
+                                leading:Image.asset("assets/top_sellers.png",
                                     height: 16,
                                     color: Color.fromRGBO(153, 153, 153, 1)),
                                 title: Text(
-                                    AppLocalizations.of(context)
-                                        .main_drawer_messages,
+                                    'Seller',
                                     style: TextStyle(
                                         color: Color.fromRGBO(153, 153, 153, 1),
                                         fontSize: 14)),
                                 onTap: () {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
-                                    return MessengerList();
+                                    return Filter(
+                                      selected_filter: "sellers",
+                                    );
                                   }));
                                 }),
                           ),

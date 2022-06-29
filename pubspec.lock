@@ -295,6 +295,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.6"
   dotted_line:
     dependency: "direct main"
     description:
@@ -1197,6 +1204,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  pusher_websocket_flutter:
+    dependency: "direct main"
+    description:
+      name: pusher_websocket_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   quiver:
     dependency: transitive
     description:

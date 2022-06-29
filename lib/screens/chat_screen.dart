@@ -8,8 +8,7 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding:  EdgeInsets.symmetric(horizontal: 5),
         child:
 
@@ -18,7 +17,7 @@ class ChatScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context,int index){
                     return ChatShape();
                   }),
-            ),
+
 
 
 
