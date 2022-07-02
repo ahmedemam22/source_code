@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:active_ecommerce_flutter/providers/message_provider.dart';
+import 'package:active_ecommerce_flutter/ui_elements/chat_elements/chat_body.dart';
+import 'package:active_ecommerce_flutter/ui_elements/chat_elements/chat_footer.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -18,15 +20,17 @@ import '../services/pusher.dart';
 
 class MessageScreen extends StatefulWidget {
   final String shopName;
-   int productId;
-   MessageScreen({Key key, this.shopName, this.productId,}) : super(key: key);
+  final String productId;
+   final dynamic shopImage;
+   final String shopId;
+   int conversationtId;
+   MessageScreen({Key key, this.shopName,this.conversationtId, this.shopImage, this.shopId, this.productId}) : super(key: key);
 
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
 
 class _MessageScreenState extends State<MessageScreen> {
-  Channel _channel;
 
   List<types.Message> _messages = [];
   final _user =  types.User(id: user_id.$.toString());
@@ -34,8 +38,17 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   void initState() {
     super.initState();
-PusherCreating().initPusher();
+  }
+  @protected
+  @mustCallSuper
+  void didChangeDependencies() {
+    print(widget.conversationtId);
+    print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+  if(widget.conversationtId!=null)  PusherCreating().initPusher(widget.conversationtId,context);
+
     _loadMessages();
+
+
   }
 
   void _addMessage(types.Message message) {
@@ -137,7 +150,7 @@ PusherCreating().initPusher();
 
       _addMessage(message);
 
-      await Provider.of<MessageProvider>(context,listen: false).uploadImage((File(result.path)));
+      //await Provider.of<MessageProvider>(context,listen: false).uploadImage((File(result.path)));
 
     }
   }
@@ -170,21 +183,23 @@ PusherCreating().initPusher();
       text: message.text,
     );
     _addMessage(textMessage);
-    if(widget.productId==null)
+    /*if(widget.productId==null)
     await Provider.of<MessageProvider>(context,listen: false).sendMessage(message.text);
-    else Provider.of<MessageProvider>(context,listen: false).createConversation(message.text,widget.productId.toString());
-
+    else Provider.of<MessageProvider>(context,listen: false).createConversation(message.text,widget.productId.toString(),"file");
+*/
   }
 
   void _loadMessages() async {
-    final response = await rootBundle.loadString('assets/messages.json');
+  if(widget.conversationtId!=null) await Provider.of<MessageProvider>(context,listen: false).getOneConversation(widget.conversationtId);
+  else await Provider.of<MessageProvider>(context,listen: false).findConversation(widget.shopId);
+  /* final response = await rootBundle.loadString('assets/messages.json');
     final messages = (jsonDecode(response) as List)
         .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
         .toList();
 
     setState(() {
       _messages = messages;
-    });
+    });*/
   }
 
   @override
@@ -205,14 +220,20 @@ PusherCreating().initPusher();
           ],
         ),
       ),
-      body: Chat(
-        messages: _messages,
-        onAttachmentPressed: _handleAtachmentPressed,
-        onMessageTap: _handleMessageTap,
-        onPreviewDataFetched: _handlePreviewDataFetched,
-        onSendPressed: _handleSendPressed,
-        user: _user,
-      ),
+      body:Consumer<MessageProvider>(
+      builder: (_, message, child) {
+    return message.oneConversationLoading||message.findConversationLoading?Center(child:CircularProgressIndicator(),):  SafeArea(
+        child: Container(
+          color: Colors.grey.withOpacity(0.00),
+          child: Column(
+            children: [
+              Expanded(
+                child: ChatBody(shopImage: widget.shopImage,conversationId: widget.conversationtId??-1,),
+              ),
+              ChatFooter(productId:widget.productId,isFirst:message.findConversationModel.conversations!=null,id: widget.conversationtId.toString()??message.conversationModel.conversationId.toString(),),
+            ],
+          ),
+        ));})
     );
   }
 }

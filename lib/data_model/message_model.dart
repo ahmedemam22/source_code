@@ -89,7 +89,7 @@ class Conversation {
   int receiverId;
   String title;
   int senderViewed;
-  int receiverViewed;
+  String receiverViewed;
   DateTime createdAt;
   DateTime updatedAt;
 

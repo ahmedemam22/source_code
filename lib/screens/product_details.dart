@@ -1259,7 +1259,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   }
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) {
-                        return MessageScreen(shopName:_productDetails.shop_name,productId: _productDetails.shop_id,);
+                        return MessageScreen(shopName:_productDetails.shop_name,shopId: _productDetails.shop_id.toString(),productId: _productDetails.id.toString());
                       }));
                   //onTapSellerChat();
                 },
@@ -1780,6 +1780,8 @@ class _ProductDetailsState extends State<ProductDetails> {
           allowHalfRating: false,
           itemCount: 5,
           ratingWidget: RatingWidget(
+            half:                Icon(FontAwesome.star, color: Color.fromRGBO(224, 224, 225, 1)),
+
             full: Icon(FontAwesome.star, color: Colors.amber),
             empty:
                 Icon(FontAwesome.star, color: Color.fromRGBO(224, 224, 225, 1)),

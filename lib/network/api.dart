@@ -23,14 +23,20 @@ class Api{
 
     );
   }
-  Future uploadImage(String url,File image) async{
+  Future<Map>get(String url)async {
+    http.Response response = await http.get(Uri.parse(url),headers: {'Content-Type': "application/json; charset=utf-8",
+      'Authorization': 'Bearer ${access_token.$}'
+    });
+    print("oneeeeeeeeeeeeeeee");
+    print(json.decode(response.body));
+
+
+    return json.decode(response.body);
+
+  }
+  Future uploadImage(String url,File image,conversationId,FormData data) async{
       String fileName = image.path.split('/').last;
-      FormData formData = FormData.fromMap({
-        "conversation_id":"4",
-        "type":"file",
-        "message":
-        await MultipartFile.fromFile(image.path, filename:fileName),
-      });
+      FormData formData = data;
       Dio dio=Dio();
       dio.options.headers["Authorization"] = "Bearer ${access_token.$}";
 

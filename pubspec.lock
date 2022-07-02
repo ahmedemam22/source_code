@@ -564,13 +564,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.6"
-  flutter_pusher:
-    dependency: "direct main"
-    description:
-      name: flutter_pusher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
   flutter_rating_bar:
     dependency: "direct main"
     description:
@@ -889,6 +882,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.0"
+  loading_gifs:
+    dependency: "direct main"
+    description:
+      name: loading_gifs
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   location:
     dependency: transitive
     description:

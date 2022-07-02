@@ -95,10 +95,13 @@ class _MainState extends State<Main> {
                       icon: new Image.asset('assets/chat.png'),
                       tooltip: 'Action',
                       onPressed: () {
-                        Navigator.push(context,
+                        access_token.$!=''?_currentIndex=2:_currentIndex=4;
+                        setState(() {
+                        });
+                       /* Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
                           return ChatScreen();
-                        }));
+                        }));*/
                       })),
               elevation: 0.0,
             ),

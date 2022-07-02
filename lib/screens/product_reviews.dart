@@ -321,6 +321,8 @@ class _ProductReviewsState extends State<ProductReviews> {
                     allowHalfRating: false,
                     itemCount: 5,
                     ratingWidget: RatingWidget(
+                      half:                Icon(FontAwesome.star, color: Color.fromRGBO(224, 224, 225, 1)),
+
                       full: Icon(FontAwesome.star, color: Colors.amber),
                       empty: Icon(FontAwesome.star,
                           color: Color.fromRGBO(224, 224, 225, 1)),
