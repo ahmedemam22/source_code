@@ -19,7 +19,7 @@ Channel _channel;
 Future<void>initPusher(int conversationId,context)async{
   //init
   try{
-    await Pusher.init("9355a638458be3c6d227",PusherOptions(cluster: "eu"));
+    await Pusher.init("fc960958dc08dd154083",PusherOptions(cluster: "eu"));
   }
   catch(e){
     print("pusher init error----->$e");

@@ -41,25 +41,27 @@ class MessageProvider extends ChangeNotifier{
   get userConversationWithLastMsgModel=>_userConversationWithLastMsgModel;
   get conversationModel=>_conversationModel;
 Future sendMessage(String message,conversationtId)async{
+  print("hooooooooo${_conversationModel.conversationId}");
  try{
    var response=await api.postWithBody(BASEURL+MESSAGEURL,
      {
-       "conversation_id": conversationtId.toString(),
+       "conversation_id": conversationtId!=null?conversationtId.toString():_conversationModel.conversationId.toString(),
        "message": message,
        "type": "text"
      },);
    _messageModel=MessageModel.fromJson(jsonDecode(response.body));
  }
   catch(e) {
-  print(e);
+  print("send message erro===>$e");
   }
   notifyListeners();
-  print("dataaaaaaaaaaaaa--->${_messageModel.message.message}");
+ // print("dataaaaaaaaaaaaa--->${_messageModel.message.message}");
 
 
 }
   Future createConversation(dynamic message,String product_id,String type,context)async{
     try{
+      print('prodddddddddddd$product_id');
       var response=await api.postWithBody(BASEURL+CREATECONVERSATION,
         {
           "product_id": product_id,
@@ -80,21 +82,27 @@ Future sendMessage(String message,conversationtId)async{
 
   }
    Future findConversation(String sellerId)async{
+     _findConversationLoading=true;
+     notifyListeners();
   _oneConversationModel=OneConversationModel(data: []);
+  print("user id====>${user_id.$.toString()}");
+  print("seller id====>${sellerId}");
      try{
-       var response=await api.postWithBody(BASEURL+CREATECONVERSATION,
+       var response=await api.postWithBody(BASEURL+FINDCONVERSATION,
          {
            "user_id": user_id.$.toString(),
            "seller_id": sellerId,
 
          },);
-       _findConversationModel=FindConversationModel.fromJson(jsonDecode(response.body));
+      if(jsonDecode(response.body)['conversations'].length>0){ _findConversationModel=FindConversationModel.fromJson(jsonDecode(response.body));
       if(_findConversationModel.conversations!=null){ _oneConversationModel.data=_findConversationModel.conversations[0].messages.data;
        _conversationModel.conversationId=_findConversationModel.conversations[0].conversationId;
-     }}
+     }}}
      catch(e) {
-       print(e);
+       print("find conversation error-->$e");
      }
+     _findConversationLoading=false;
+
      notifyListeners();
     // print("dataaaaaaaaaaaaa--->${_findConversationModel.conversations[0].conversationId}");
 

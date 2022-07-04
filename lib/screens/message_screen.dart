@@ -44,6 +44,7 @@ class _MessageScreenState extends State<MessageScreen> {
   void didChangeDependencies() {
     print(widget.conversationtId);
     print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+    print(widget.productId);
   if(widget.conversationtId!=null)  PusherCreating().initPusher(widget.conversationtId,context);
 
     _loadMessages();
@@ -204,6 +205,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("iddddddd${widget.productId}");
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(

@@ -137,7 +137,7 @@ void _handleImageSelection() async {
      widget.isFirst=false;
    }
    else  await Provider.of<MessageProvider>(context, listen: false)
-       .uploadImageForSecondCon((File(result.path)), widget.productId);
+       .uploadImageForSecondCon((File(result.path)), widget.id);
   }
 }
 Future<void> _handleSendPressed(text) async{
@@ -149,11 +149,10 @@ Future<void> _handleSendPressed(text) async{
       message: text
   );
   Provider.of<MessageProvider>(context,listen: false).addConversation(message);
-  if(widget.isFirst) {
+  if( Provider.of<MessageProvider>(context,listen: false).oneConversationModel.data.length==1) {
     Provider.of<MessageProvider>(context, listen: false).createConversation(
-        message.message, widget.id, 'text',context);
-    widget.isFirst=false;
-  }else Provider.of<MessageProvider>(context,listen: false).sendMessage(message.message,widget.id);
+        message.message, widget.productId, 'text',context);
+  }else Provider.of<MessageProvider>(context,listen: false).sendMessage(text,widget.id);
   //if(widget.productId==null)
  // else Provider.of<MessageProvider>(context,listen: false).createConversation(chatInputController.text,widget.productId.toString(),"file");
 
