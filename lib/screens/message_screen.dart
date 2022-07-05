@@ -42,9 +42,6 @@ class _MessageScreenState extends State<MessageScreen> {
   @protected
   @mustCallSuper
   void didChangeDependencies() {
-    print(widget.conversationtId);
-    print('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-    print(widget.productId);
   if(widget.conversationtId!=null)  PusherCreating().initPusher(widget.conversationtId,context);
 
     _loadMessages();
@@ -191,6 +188,7 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   void _loadMessages() async {
+    Provider.of<MessageProvider>(context,listen: false).intializeScrollController();
   if(widget.conversationtId!=null) await Provider.of<MessageProvider>(context,listen: false).getOneConversation(widget.conversationtId);
   else await Provider.of<MessageProvider>(context,listen: false).findConversation(widget.shopId);
   /* final response = await rootBundle.loadString('assets/messages.json');

@@ -40,10 +40,11 @@ class MessageProvider extends ChangeNotifier{
   get messageModel=>_messageModel;
   get userConversationWithLastMsgModel=>_userConversationWithLastMsgModel;
   get conversationModel=>_conversationModel;
+  intializeScrollController(){
+    _scrollController== ScrollController();
+    notifyListeners();
+  }
 Future sendMessage(String message,conversationtId)async{
-  print("hooooooooo${_conversationModel.conversationId}");
-  print("hooooooooo$message");
-  print("hooooooooo${conversationtId!=null?conversationtId.toString():_conversationModel.conversationId.toString()}");
  try{
    var response=await api.postWithBody(BASEURL+MESSAGEURL,
      {
@@ -119,6 +120,7 @@ Future sendMessage(String message,conversationtId)async{
           "user_id": user_id.$.toString(),
 
         },);
+
       _userConversationWithLastMsgModel =
           UserConversationWithLastMsgModel.fromJson(jsonDecode(response.body));
     }
@@ -180,7 +182,7 @@ catch(e){
   _chatInputController.text='';
   print(_oneConversationModel.data.length);
   _oneConversationModel.data.add(item);
-  //scrollToDown();
+  scrollToDown();
   notifyListeners();
   }
 scrollToDown(){

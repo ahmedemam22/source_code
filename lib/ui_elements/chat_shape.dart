@@ -18,7 +18,7 @@ class ChatShape extends StatelessWidget {
       child: Column(
         children: [
           ListTile(
-            selected: !conversation.messages.data[0].seen,
+            selected: conversation.messages.data.length!=0?!conversation.messages.data[0].seen:false,
             leading: CircleAvatar(
               radius: 18,
               child: ClipOval(
