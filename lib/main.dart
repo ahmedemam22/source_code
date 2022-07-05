@@ -28,11 +28,16 @@ import 'package:firebase_core/firebase_core.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
+
+  /*const instanceID = '00000000-0000-0000-0000-000000000000';//هid of the Beams instance
+  await PusherBeams.instance.start(instanceID);
+  await PusherBeams.instance.setDeviceInterests(['debug-new', "hello"]);*///the device subscribes to two interests (“debug-new” and “hello”), and they will be used to publish notifications.
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
+ // PusherBeams.instance.onMessageReceivedInTheForeground((notification) => print(notification));
 
   // AddonsHelper().setAddonsData();
   // BusinessSettingHelper().setBusinessSettingData();

@@ -42,13 +42,17 @@ class MessageProvider extends ChangeNotifier{
   get conversationModel=>_conversationModel;
 Future sendMessage(String message,conversationtId)async{
   print("hooooooooo${_conversationModel.conversationId}");
+  print("hooooooooo$message");
+  print("hooooooooo${conversationtId!=null?conversationtId.toString():_conversationModel.conversationId.toString()}");
  try{
    var response=await api.postWithBody(BASEURL+MESSAGEURL,
      {
-       "conversation_id": conversationtId!=null?conversationtId.toString():_conversationModel.conversationId.toString(),
+       "conversation_id": _conversationModel.conversationId.toString()??conversationtId.toString(),
        "message": message,
        "type": "text"
      },);
+   print(jsonDecode(response.body));
+   print("sennnnnnnnnnd0");
    _messageModel=MessageModel.fromJson(jsonDecode(response.body));
  }
   catch(e) {

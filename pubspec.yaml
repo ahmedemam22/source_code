@@ -86,6 +86,7 @@ dependencies:
   dio: ^4.0.6
   loading_gifs: ^0.3.0
   pusher_websocket_flutter: ^0.2.0
+  #pusher_beams: ^1.1.0
 dependency_overrides:
   json_annotation: ^4.1.0
   json_serializable: ^6.0.2
