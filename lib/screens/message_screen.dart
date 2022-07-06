@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:active_ecommerce_flutter/providers/message_provider.dart';
@@ -34,6 +35,8 @@ class _MessageScreenState extends State<MessageScreen> {
 
   List<types.Message> _messages = [];
   final _user =  types.User(id: user_id.$.toString());
+  final ScrollController _scrollController = ScrollController();
+
 
   @override
   void initState() {
@@ -188,9 +191,9 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 
   void _loadMessages() async {
-    Provider.of<MessageProvider>(context,listen: false).intializeScrollController();
   if(widget.conversationtId!=null) await Provider.of<MessageProvider>(context,listen: false).getOneConversation(widget.conversationtId);
   else await Provider.of<MessageProvider>(context,listen: false).findConversation(widget.shopId);
+
   /* final response = await rootBundle.loadString('assets/messages.json');
     final messages = (jsonDecode(response) as List)
         .map((e) => types.Message.fromJson(e as Map<String, dynamic>))
@@ -228,12 +231,21 @@ class _MessageScreenState extends State<MessageScreen> {
           child: Column(
             children: [
               Expanded(
-                child: ChatBody(shopImage: widget.shopImage,conversationId: widget.conversationtId??-1,),
+                child: ChatBody(shopImage: widget.shopImage,conversationId: widget.conversationtId??-1,scrollController: _scrollController,),
               ),
-              ChatFooter(productId:widget.productId,isFirst:message.findConversationModel.conversations!=null,id: widget.conversationtId.toString()??message.conversationModel.conversationId.toString(),),
+              ChatFooter(scrollController: _scrollController,productId:widget.productId,isFirst:message.findConversationModel.conversations!=null,id: widget.conversationtId.toString()??message.conversationModel.conversationId.toString(),),
             ],
           ),
         ));})
     );
+  }
+  scroll(){
+
+    Timer(Duration(milliseconds: 500), () {
+
+      _scrollController.jumpTo(
+         _scrollController.position.maxScrollExtent);
+
+    });
   }
 }

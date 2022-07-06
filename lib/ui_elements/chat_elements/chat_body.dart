@@ -8,14 +8,16 @@ import 'item_message_reciever_shape.dart';
 class ChatBody extends StatelessWidget {
   final dynamic shopImage;
   final int conversationId;
-   ChatBody({Key key, this.shopImage, this.conversationId}) : super(key: key);
+  final ScrollController scrollController;
+
+  ChatBody({Key key, this.shopImage, this.conversationId, this.scrollController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<MessageProvider>(
         builder: (_, message, child) {
           return
             ListView.builder(
-                controller: message.scrollController,
+                controller: scrollController,
                 itemCount: message.oneConversationModel.data!=null?message.oneConversationModel.data.length:0,
                 itemBuilder: (context, index) {
                   return  message.oneConversationModel.data[index].userId==user_id.$ ?

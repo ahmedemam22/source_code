@@ -18,8 +18,6 @@ import '../network/const.dart';
 import '../services/pusher.dart';
 
 class MessageProvider extends ChangeNotifier{
-  final ScrollController _scrollController = ScrollController();
-  get scrollController=>_scrollController;
   final _chatInputController = new TextEditingController();
   get chatInputController=>_chatInputController;
 
@@ -40,15 +38,19 @@ class MessageProvider extends ChangeNotifier{
   get messageModel=>_messageModel;
   get userConversationWithLastMsgModel=>_userConversationWithLastMsgModel;
   get conversationModel=>_conversationModel;
-  intializeScrollController(){
-    _scrollController== ScrollController();
-    notifyListeners();
-  }
+
 Future sendMessage(String message,conversationtId)async{
  try{
+
+    int convId;
+    if(conversationtId==-1)convId=_conversationModel.conversationId;
+    else convId=int.parse(conversationtId);
+    print(convId);
+    print("iddddddddd");
+
    var response=await api.postWithBody(BASEURL+MESSAGEURL,
      {
-       "conversation_id": _conversationModel.conversationId.toString()??conversationtId.toString(),
+       "conversation_id": convId.toString(),
        "message": message,
        "type": "text"
      },);
@@ -182,15 +184,11 @@ catch(e){
   _chatInputController.text='';
   print(_oneConversationModel.data.length);
   _oneConversationModel.data.add(item);
-  scrollToDown();
+  //scrollToDown(controller);
   notifyListeners();
   }
-scrollToDown(){
+scrollToDown(controller){
 
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn);
 
   notifyListeners();
 }

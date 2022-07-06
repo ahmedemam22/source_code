@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -10,12 +11,14 @@ import '../../data_model/one_conversation_model.dart';
 import '../../helpers/shared_value_helper.dart';
 import '../../providers/message_provider.dart';
 class ChatFooter extends StatefulWidget {
-   ChatFooter({Key key, this.productId, this.id,this.isFirst}) : super(key: key);
+   ChatFooter({Key key, this.productId, this.id,this.isFirst, this.scrollController}) : super(key: key);
     final String productId;
     bool isFirst=false;
    final String id;
+   final ScrollController scrollController;
 
-  @override
+
+   @override
   State<ChatFooter> createState() => _ChatFooterState();
 }
 
@@ -129,7 +132,7 @@ void _handleImageSelection() async {
       message: File(result.path)
     );
     Provider.of<MessageProvider>(context,listen: false).addConversation(message);
-
+scroll();
 
    if(widget.isFirst) {
      await Provider.of<MessageProvider>(context, listen: false)
@@ -149,12 +152,21 @@ Future<void> _handleSendPressed(text) async{
       message: text
   );
   Provider.of<MessageProvider>(context,listen: false).addConversation(message);
+  scroll();
   if( Provider.of<MessageProvider>(context,listen: false).oneConversationModel.data.length==1) {
     Provider.of<MessageProvider>(context, listen: false).createConversation(
         message.message, widget.productId, 'text',context);
-  }else Provider.of<MessageProvider>(context,listen: false).sendMessage(text,widget.id);
+  }else Provider.of<MessageProvider>(context,listen: false).sendMessage(text,widget.id??-1);
   //if(widget.productId==null)
  // else Provider.of<MessageProvider>(context,listen: false).createConversation(chatInputController.text,widget.productId.toString(),"file");
 
 }
-}
+scroll(){
+  Timer(Duration(milliseconds: 500), () {
+
+  widget.scrollController.jumpTo(
+      widget.scrollController.position.maxScrollExtent);
+
+});
+
+}}

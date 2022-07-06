@@ -27,7 +27,7 @@ class ChatShape extends StatelessWidget {
                 ),
               ),
             ),
-            title: Text(conversation.shopName),
+            title: Text(conversation.shopName??''),
             subtitle: conversation.messages.data.length==0?Text(''):Text(conversation.messages.data[0].type=='file'?'pic...':conversation.messages.data[0].message,
               style: TextStyle(
                   overflow: TextOverflow.ellipsis
