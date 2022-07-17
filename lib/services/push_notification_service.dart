@@ -1,3 +1,4 @@
+import 'package:active_ecommerce_flutter/screens/chat_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:active_ecommerce_flutter/screens/order_details.dart';
@@ -7,6 +8,9 @@ import 'package:active_ecommerce_flutter/repositories/profile_repository.dart';
 import 'package:one_context/one_context.dart';
 import 'package:active_ecommerce_flutter/custom/toast_component.dart';
 import 'package:toast/toast.dart';
+
+import '../main.dart';
+import '../screens/splash_screen.dart';
 
 final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
@@ -43,6 +47,7 @@ class PushNotificationService {
       print("onResume: $message");
       (Map<String, dynamic> message) async => _serialiseAndNavigate(message);
     });
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
   void _showMessage(RemoteMessage message) {
@@ -116,5 +121,37 @@ class PushNotificationService {
       }));
     } // If there's no view it'll just open the app on the first view    }
   }
+  Future _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    print("Handling a background message: ${message.messageId}");
+    if (is_logged_in.$ == false) {
+      OneContext().showDialog(
+        // barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: new Text("You are not logged in"),
+            content: new Text("Please log in"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('close'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              FlatButton(
+                  child: Text('Login'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    OneContext().push(MaterialPageRoute(builder: (_) {
+                      return Login();
+                    }));
+                  }),
+            ],
+          ));
+      return;
+    }
 
-}
+        return main();
+
+    } // If there's no view it'll just open the app on the first view    }
+
+
+  }
+
+

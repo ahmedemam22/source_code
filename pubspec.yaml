@@ -67,6 +67,8 @@ dependencies:
   google_sign_in: ^5.1.1
   google_maps_place_picker_mb: ^2.0.0-mb.20
   firebase_messaging: ^11.4.1
+  firebase_core: ^1.13.1
+  overlay_support: ^1.2.1
   one_context: ^2.0.0
   social_share: ^2.2.1
   flutter_typeahead: ^4.0.0
