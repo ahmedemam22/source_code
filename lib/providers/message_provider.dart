@@ -192,6 +192,9 @@ scrollToDown(controller){
 
   notifyListeners();
 }
+changeSeen(int index){
+  _userConversationWithLastMsgModel.conversations[index].messages.data.forEach((element) {element.seen=true;});
+}
 
 
 }
