@@ -25,7 +25,7 @@ class MessageProvider extends ChangeNotifier{
 
 
   MessageModel _messageModel;
-  ConversationModel _conversationModel;
+  ConversationModel _conversationModel=ConversationModel();
   FindConversationModel _findConversationModel=FindConversationModel();
   UserConversationWithLastMsgModel _userConversationWithLastMsgModel;
   OneConversationModel _oneConversationModel;
@@ -42,15 +42,11 @@ class MessageProvider extends ChangeNotifier{
 Future sendMessage(String message,conversationtId)async{
  try{
 
-    int convId;
-    if(conversationtId==-1)convId=_conversationModel.conversationId;
-    else convId=int.parse(conversationtId);
-    print(convId);
-    print("iddddddddd");
+
 
    var response=await api.postWithBody(BASEURL+MESSAGEURL,
      {
-       "conversation_id": convId.toString(),
+       "conversation_id":getConversatioId(conversationtId),
        "message": message,
        "type": "text"
      },);
@@ -59,7 +55,9 @@ Future sendMessage(String message,conversationtId)async{
    _messageModel=MessageModel.fromJson(jsonDecode(response.body));
  }
   catch(e) {
-  print("send message erro===>$e");
+    print("cccccccccc${getConversatioId(conversationtId)}");
+
+    print("send message erro===>$e");
   }
   notifyListeners();
  // print("dataaaaaaaaaaaaa--->${_messageModel.message.message}");
@@ -101,8 +99,15 @@ Future sendMessage(String message,conversationtId)async{
            "seller_id": sellerId,
 
          },);
-      if(jsonDecode(response.body)['conversations'].length>0){ _findConversationModel=FindConversationModel.fromJson(jsonDecode(response.body));
-      if(_findConversationModel.conversations!=null){ _oneConversationModel.data=_findConversationModel.conversations[0].messages.data;
+       print("resssssssss-->${jsonDecode(response.body)}");
+      if(jsonDecode(response.body)['conversations'].length>0){
+        print("tmaaaaaaaaam");
+
+        _findConversationModel=FindConversationModel.fromJson(jsonDecode(response.body));
+      if(_findConversationModel.conversations!=null){
+        print("2wiiiiiii${_findConversationModel.conversations[0].conversationId}");
+
+        _oneConversationModel.data=_findConversationModel.conversations[0].messages.data;
        _conversationModel.conversationId=_findConversationModel.conversations[0].conversationId;
      }}}
      catch(e) {
@@ -196,5 +201,15 @@ changeSeen(int index){
   _userConversationWithLastMsgModel.conversations[index].messages.data.forEach((element) {element.seen=true;});
 }
 
-
+String getConversatioId(conversationtId){
+  print('vvvvvvvvv$conversationtId');
+  print('vvvvvvvvv${_conversationModel.conversationId}');
+  int convId;
+  if(conversationtId==-1)convId=_conversationModel.conversationId;
+  else {convId=int.parse(conversationtId);}
+  print(convId);
+  print("iddddddddd");
+  print("convvv->$convId");
+  return convId.toString();
+}
 }

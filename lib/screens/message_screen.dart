@@ -207,6 +207,7 @@ class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     print("iddddddd${widget.productId}");
+    print("shooop${widget.shopId}");
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(

@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
       child:
 
       ListView.builder(
-          itemCount: messageProvider.userConversationWithLastMsgModel.conversations.length,
+          itemCount: messageProvider.userConversationWithLastMsgModel!=null?messageProvider.userConversationWithLastMsgModel.conversations.length:0,
           itemBuilder: (BuildContext context,int index){
             return ChatShape(conversation:messageProvider.userConversationWithLastMsgModel.conversations[index],index:index);
           }),

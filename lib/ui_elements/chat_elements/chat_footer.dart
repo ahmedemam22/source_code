@@ -156,7 +156,9 @@ Future<void> _handleSendPressed(text) async{
   if( Provider.of<MessageProvider>(context,listen: false).oneConversationModel.data.length==1) {
     Provider.of<MessageProvider>(context, listen: false).createConversation(
         message.message, widget.productId, 'text',context);
-  }else Provider.of<MessageProvider>(context,listen: false).sendMessage(text,widget.id??-1);
+  }else {
+
+    Provider.of<MessageProvider>(context,listen: false).sendMessage(text,widget.id!='null'?widget.id:-1);}
   //if(widget.productId==null)
  // else Provider.of<MessageProvider>(context,listen: false).createConversation(chatInputController.text,widget.productId.toString(),"file");
 
