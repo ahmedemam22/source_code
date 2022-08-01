@@ -45,12 +45,16 @@ class _MessageScreenState extends State<MessageScreen> {
   @protected
   @mustCallSuper
   void didChangeDependencies() {
-  if(widget.conversationtId!=null)  PusherCreating().initPusher(widget.conversationtId,context);
+  if(widget.conversationtId!=null)
+    PusherCreating().initPusher(widget.conversationtId,context);
+  else{ print(widget.conversationtId);
+   print('tb3333333');}
 
     _loadMessages();
-
-
   }
+
+
+
 
   void _addMessage(types.Message message) {
     setState(() {
@@ -192,7 +196,7 @@ class _MessageScreenState extends State<MessageScreen> {
 
   void _loadMessages() async {
   if(widget.conversationtId!=null) await Provider.of<MessageProvider>(context,listen: false).getOneConversation(widget.conversationtId);
-  else await Provider.of<MessageProvider>(context,listen: false).findConversation(widget.shopId);
+  else await Provider.of<MessageProvider>(context,listen: false).findConversation(widget.shopId,context);
 
   /* final response = await rootBundle.loadString('assets/messages.json');
     final messages = (jsonDecode(response) as List)

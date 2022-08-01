@@ -86,7 +86,7 @@ Future sendMessage(String message,conversationtId)async{
 
 
   }
-   Future findConversation(String sellerId)async{
+   Future findConversation(String sellerId,context)async{
      _findConversationLoading=true;
      notifyListeners();
   _oneConversationModel=OneConversationModel(data: []);
@@ -109,7 +109,9 @@ Future sendMessage(String message,conversationtId)async{
 
         _oneConversationModel.data=_findConversationModel.conversations[0].messages.data;
        _conversationModel.conversationId=_findConversationModel.conversations[0].conversationId;
-     }}}
+        PusherCreating().initPusher(_conversationModel.conversationId,context);
+
+      }}}
      catch(e) {
        print("find conversation error-->$e");
      }

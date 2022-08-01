@@ -66,8 +66,8 @@ dependencies:
   flutter_facebook_auth: ^4.3.4+2
   google_sign_in: ^5.1.1
   google_maps_place_picker_mb: ^2.0.0-mb.20
-  firebase_messaging: ^11.4.1
-  firebase_core: ^1.13.1
+  firebase_messaging: ^12.0.1
+  firebase_core: ^1.20.0
   overlay_support: ^1.2.1
   one_context: ^2.0.0
   social_share: ^2.2.1
@@ -75,6 +75,7 @@ dependencies:
   photo_view: ^0.14.0
   intl: ^0.17.0
   twitter_login: ^4.0.1
+  flutter_local_notifications: ^9.7.0
   sign_in_with_apple: ^4.0.0
   crypto: ^3.0.1
   validators: ^3.0.0

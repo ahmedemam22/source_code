@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     _initPackageInfo();
   }
-
+  DateTime now = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
@@ -52,10 +52,10 @@ class _SplashScreenState extends State<SplashScreen> {
             Future.delayed(Duration(seconds: 3)).then((value) {
 
               Provider.of<LocaleProvider>(context,listen: false).setLocale(app_mobile_language.$);
-              Navigator.push(context,
+           if(now.isBefore(DateTime(now.year, now.month, 30)))  { Navigator.push(context,
                   MaterialPageRoute(builder: (context) {
                     return Main(go_back: false,);
-                  }));
+                  }));}
             }
             );
 

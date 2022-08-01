@@ -39,7 +39,10 @@ Future<void>initPusher(int conversationId,context)async{
   await _channel.bind('new-message', (onEvent) {
     //if(mounted){
       final data=json.decode(onEvent.data);
-      if(user_id.$!=data['sender_id'])Provider.of<MessageProvider>(context,listen: false).addConversation(DataMessageModel(userId:data['sender_id'] ,message:data['message']['message'],type: data['message']['type'] ,date:  new DateFormat("dd-MM-y").format(data['message']['created_at'])));
+      print("creaaaaaaat${data['message']['created_at']}");
+
+
+      if(user_id.$!=data['sender_id'])Provider.of<MessageProvider>(context,listen: false).addConversation(DataMessageModel(userId:data['sender_id'] ,message:data['message']['message'],type: data['message']['type'] ,date: data['message']['created_at']));
 
 
     //}

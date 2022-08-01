@@ -60,6 +60,10 @@ class _LoginState extends State<Login> {
   }
 
   onPressedLogin() async {
+    final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+    String fcmToken = await _fcm.getToken();
+
     var email = _emailController.text.toString();
     var password = _passwordController.text.toString();
 
@@ -73,9 +77,11 @@ class _LoginState extends State<Login> {
       ToastComponent.showDialog(AppLocalizations.of(context).login_screen_password_warning, gravity: Toast.center, duration: Toast.lengthLong);
       return;
     }
+    print('toook');
+    print(fcmToken);
 
     var loginResponse = await AuthRepository()
-        .getLoginResponse(_login_by == 'email' ? email : _phone, password);
+        .getLoginResponse(_login_by == 'email' ? email : _phone, password,fcmToken);
     if (loginResponse.result == false) {
       ToastComponent.showDialog(loginResponse.message, gravity: Toast.center, duration: Toast.lengthLong);
     } else {
